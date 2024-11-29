@@ -12,7 +12,7 @@ import LoginPage from "../../pages/login-page/LoginPage";
 
 const App = function () {
     return (
-        <Theme preset={presetGpnDefault}>
+        <Theme preset={presetGpnDefault} style={{ display: "flex", height: "100vh", flexDirection: "column", justifyContent: "space-between", paddingRight: "100px", paddingLeft: "100px" }}>
             <BrowserRouter>
                 <Header/>
                 <Routes>
@@ -23,7 +23,7 @@ const App = function () {
                         <Route path='login' element={<LoginPage/>}></Route>
                         {/*<Route path={`${AppRoute.service}/:id`} element={<ServiceDetailPage/>}></Route>*/}
                     </Route>
-                    <Route path='*' element={<div style={{ marginTop: "200px" }}><Responses404 className='test' /></div>}></Route>
+                    <Route path='*' element={<Responses404 className='test'/>}></Route>
                 </Routes>
                 <Footer/>
             </BrowserRouter>

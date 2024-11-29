@@ -15,7 +15,6 @@
     padding: 10px 20px;
     margin: 0 5px;
     cursor: pointer;
-    border-radius: 10px;
     text-decoration: none;
     color: #f05028; /* Цвет текста */
     transition: background-color 0.3s, color 0.3s;
@@ -27,9 +26,9 @@
 }
 
 .header .nav-button.active {
-    background-color: #9e1907; /* Цвет фона активной кнопки */
+    background-color: #a82243; /* Цвет фона активной кнопки */
     color: #ffffff; /* Цвет текста активной кнопки */
-    border-color: #9e1907; /* Цвет границы активной кнопки */
+    border-color: #a82243; /* Цвет границы активной кнопки */
 }
 
 .header .nav-left,

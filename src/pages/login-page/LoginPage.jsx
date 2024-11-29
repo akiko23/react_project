@@ -2,18 +2,34 @@ import React from "react";
 import './LoginPage.css'
 
 const LoginPage = () => {
+    const [formData, setFormData] = React.useState({
+        username: '',
+        password: ''
+    });
+    
+    
+    function updateFormData (e) {
+        const {name, value} = e.target;
+        setFormData({...formData, [name]: value})
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        console.log(formData.username)
+    }
+
     return (
             <div className="container-login">
                 <div className="screen">
                     <div className="screen__content">
-                        <form className="login">
+                        <form className="login" onSubmit={handleSubmit}>
                             <div className="login__field">
                                 <i className="login__icon fas fa-user"></i>
-                                <input type="text" className="login__input" placeholder="Юзернейм / Почта"/>
+                                <input type="text" name="username" className="login__input" placeholder="Юзернейм / Почта" onChange={updateFormData}/>
                             </div>
                             <div className="login__field">
                                 <i className="login__icon fas fa-lock"></i>
-                                <input type="password" className="login__input" placeholder="Пароль"/>
+                                <input type="password" name="password" className="login__input" placeholder="Пароль" onChange={updateFormData}/>
                             </div>
                             <button className="button login__submit">
                                 <span className="button__text">Войти</span>
