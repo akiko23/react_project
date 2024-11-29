@@ -1,0 +1,44 @@
+/* Общие стили для заголовка */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #fFFFFF; /* Цвет фона */
+    border-bottom: 1px solid #dee2e6; /* Линия под заголовком */
+}
+
+/* Стили для кнопок навигации */
+.header .nav-button {
+    background-color: transparent;
+    border: 1px solid rgb(224, 214, 214);
+    padding: 10px 20px;
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #f05028; /* Цвет текста */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.header .nav-button:hover {
+    background-color: #efe9e9; /* Цвет фона при наведении */
+    color: #8b260d; /* Цвет текста при наведении */
+}
+
+.header .nav-button.active {
+    background-color: #9e1907; /* Цвет фона активной кнопки */
+    color: #ffffff; /* Цвет текста активной кнопки */
+    border-color: #9e1907; /* Цвет границы активной кнопки */
+}
+
+.header .nav-left,
+.header .nav-right {
+    display: flex;
+    gap: 10px; /* Отступы между кнопками */
+    padding: 4px;
+}
+
+.header .nav-right {
+    margin-left: auto; /* Прижимаем контейнер справа */
+}

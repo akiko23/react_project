@@ -1,0 +1,52 @@
+/* Общие стили для футера */
+.footer {
+    background-color: #f8f9fa; /* Цвет фона */
+    padding: 20px;
+    border-top: 1px solid #dee2e6; /* Линия над футером */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Стили для контейнера контента футера */
+.footer .nav-button {
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: 10px 20px;
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #f05028; /* Цвет текста */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.footer .nav-button:hover {
+    background-color: #e9ecef; /* Цвет фона при наведении */
+    color: #8b260d; /* Цвет текста при наведении */
+}
+.footer .nav-button.active {
+    background-color: #9e1907; /* Цвет фона активной кнопки */
+    color: #ffffff; /* Цвет текста активной кнопки */
+    border-color: #9e1907; /* Цвет границы активной кнопки */
+}
+
+.footer .nav-left,
+.footer .nav-right {
+    display: flex;
+    gap: 10px; /* Отступы между кнопками */
+    padding: 4px;
+}
+
+/* Стили для текста в футере */
+.footer-text {
+    margin: 0;
+    color: #6c757d; /* Цвет текста */
+}
+
+.footer .nav-right {
+    margin-left: auto; /* Прижимаем контейнер справа */
+}
