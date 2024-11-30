@@ -3,6 +3,9 @@ import { Pagination } from "@consta/uikit/Pagination";
 import { Loader } from "@consta/uikit/Loader";
 import "./ServicePage.css";
 
+const SERVICES_URL = "https://673423afa042ab85d1190055.mockapi.io/api/v1/services";
+
+
 const ServicePage = () => {
   const [allCards, setAllCards] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -15,9 +18,7 @@ const ServicePage = () => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch(
-          "https://673423afa042ab85d1190055.mockapi.io/api/v1/services"
-        );
+        const response = await fetch(SERVICES_URL);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -59,7 +60,7 @@ const ServicePage = () => {
                     <img src={card.image} alt={card.name} className="card-image" />
                     <div>
                         <h3>{card.name}</h3>
-                        <p>{card.description}</p>
+                        <p style={{marginTop: "10px"}}>{card.description}</p>
                     </div>
                 </a>
             ))

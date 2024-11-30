@@ -21,7 +21,7 @@ main {
     text-decoration: none;
     color: #ffffff;
     border-radius: 15px;
-    border: 1px solid #e0e0e0;
+    border: 1px solid black;
     max-width: 600px;
     max-height: 400px;
 }
