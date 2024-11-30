@@ -10,17 +10,61 @@ main {
 }
 
 .company-card {
-    background-color: #a82243;
-    color: #ffffff;
+    background: #a82243;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    align-items: flex-start;
     padding: 1.5rem;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s;
     text-decoration: none;
+    color: #ffffff;
     border-radius: 15px;
     border: 1px solid #e0e0e0;
+    max-width: 600px;
+    max-height: 400px;
 }
+
 
 .company-card:hover {
     transform: translateY(-5px);
+    cursor: pointer;
+}
+
+
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
+
+
+main {
+    flex: 1;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+
+.company-card:hover {
+    transform: translateY(-5px);
+}
+
+.card-image {
+  max-width: auto;
+  display: block;
+  border: 1px solid white;
+  border-radius: 15px;
+  height: auto;
+  max-height: 100px;
+  object-fit: cover;
+  margin-bottom: 10px;
 }
 

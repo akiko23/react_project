@@ -1,36 +1,69 @@
-import React, { useState } from "react";
-import { faker } from '@faker-js/faker';
+import React, { useState, useEffect } from "react";
 import { Pagination } from "@consta/uikit/Pagination";
+import { Loader } from "@consta/uikit/Loader";
 import "./ServicePage.css";
 
-const generateCards = (count) => {
-  return Array.from({ length: count }, () => ({
-    id: faker.string.uuid(),
-    name: faker.company.name(),
-    description: faker.company.catchPhrase(),
-    link: faker.internet.url(),
-  }));
-};
-
-
 const ServicePage = () => {
-  const allCards = generateCards(50);
+  const [allCards, setAllCards] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [error, setError] = useState(null);
+
   const cardsPerPage = 15;
 
-  const [currentPage, setCurrentPage] = useState(1);
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const response = await fetch(
+          "https://673423afa042ab85d1190055.mockapi.io/api/v1/services"
+        );
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setAllCards(data);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const startIndex = (currentPage - 1) * cardsPerPage;
   const currentCards = allCards.slice(startIndex, startIndex + cardsPerPage);
 
+  if (isLoading) {
+    return (
+      <div className="loader-container">
+        <Loader size="m" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+
+  console.log(currentCards)
   return (
     <div>
       <main>
-        {currentCards.map((card) => (
-          <a href={card.link} className="company-card" key={card.id}>
-            <h3>{card.name}</h3>
-            <p>{card.description}</p>
-          </a>
-        ))}
+        {
+            currentCards.map((card) => (
+                <a href={`/services/${card.id}`} className="company-card" key={card.id}>
+                    <img src={card.image} alt={card.name} className="card-image" />
+                    <div>
+                        <h3>{card.name}</h3>
+                        <p>{card.description}</p>
+                    </div>
+                </a>
+            ))
+        }
       </main>
       <Pagination
         totalPages={Math.ceil(allCards.length / cardsPerPage)}
