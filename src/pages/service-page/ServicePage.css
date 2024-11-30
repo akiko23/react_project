@@ -10,7 +10,7 @@ main {
 }
 
 .company-card {
-    background: #a82243;
+    background: #a4d4fc;
     display: flex;
     gap: 15px;
     justify-content: center;
@@ -19,7 +19,7 @@ main {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s;
     text-decoration: none;
-    color: #ffffff;
+    color: black;
     border-radius: 15px;
     border: 1px solid black;
     max-width: 600px;
@@ -60,7 +60,7 @@ main {
 .card-image {
   max-width: auto;
   display: block;
-  border: 1px solid white;
+  border: 1px solid black;
   border-radius: 15px;
   height: auto;
   max-height: 100px;

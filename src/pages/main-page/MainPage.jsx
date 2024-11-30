@@ -59,7 +59,9 @@ const MainPage = () => {
                         <p><b>{card.name}</b></p>
                         <br/>
                         <p>{card.description}</p>
-                        <div className="message-time">{card.createdAt}</div>
+                        <div className="message-time">{
+                            new Date(card.createdAt).toUTCString()
+                        }</div>
                     </div>
                 ))
             }

@@ -1,6 +1,23 @@
 import React from "react";
 import './LoginPage.css'
 
+const AUTH_TOKEN_KEY_NAME = 'lk-sirius-token';
+
+export type Token = string;
+
+export const getToken = () => {
+    const token = localStorage.getItem(AUTH_TOKEN_KEY_NAME);
+    return token ?? '';
+};
+
+export const saveToken = (token: Token) => {
+    localStorage.setItem(AUTH_TOKEN_KEY_NAME, token);
+};
+
+export const dropToken = (token: Token) => {
+    localStorage.removeItem(AUTH_TOKEN_KEY_NAME);
+};
+
 const LoginPage = () => {
     const [formData, setFormData] = React.useState({
         username: '',
@@ -25,7 +42,7 @@ const LoginPage = () => {
                         <form className="login" onSubmit={handleSubmit}>
                             <div className="login__field">
                                 <i className="login__icon fas fa-user"></i>
-                                <input type="text" name="username" className="login__input" placeholder="Юзернейм / Почта" onChange={updateFormData}/>
+                                <input type="text" name="username" className="login__input" placeholder="Логин" onChange={updateFormData}/>
                             </div>
                             <div className="login__field">
                                 <i className="login__icon fas fa-lock"></i>

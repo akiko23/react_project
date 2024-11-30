@@ -5,30 +5,29 @@
     align-items: center;
     padding: 10px 20px;
     background-color: #fFFFFF; /* Цвет фона */
-    border-bottom: 1px solid #dee2e6; /* Линия под заголовком */
+    border-bottom: 1px solid black; /* Линия под заголовком */
 }
 
 /* Стили для кнопок навигации */
 .header .nav-button {
     background-color: transparent;
-    border: 1px solid rgb(224, 214, 214);
+    border: 1px solid black;
     padding: 10px 20px;
     margin: 0 5px;
     cursor: pointer;
     text-decoration: none;
-    color: #f05028; /* Цвет текста */
+    color: black; /* Цвет текста */
     transition: background-color 0.3s, color 0.3s;
 }
 
 .header .nav-button:hover {
-    background-color: #efe9e9; /* Цвет фона при наведении */
-    color: #8b260d; /* Цвет текста при наведении */
+    background-color: #e9ecef; /* Цвет фона при наведении */
 }
 
 .header .nav-button.active {
-    background-color: #a82243; /* Цвет фона активной кнопки */
-    color: #ffffff; /* Цвет текста активной кнопки */
-    border-color: #a82243; /* Цвет границы активной кнопки */
+    background-color: #a4d4fc; /* Цвет фона активной кнопки */
+    color: black; /* Цвет текста активной кнопки */
+    border-color: black; /* Цвет границы активной кнопки */
 }
 
 .header .nav-left,

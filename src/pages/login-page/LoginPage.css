@@ -24,11 +24,11 @@ body {
 }
 
 .screen {
-    background: linear-gradient(90deg, #a45454, #b87878);
+    background: linear-gradient(90deg, #549ba4, #78a6b8);
     position: relative;
+    border: 1px solid black;
     height: 600px;
     width: 360px;
-    box-shadow: 0px 0px 24px #965656;
 }
 
 .screen__content {
@@ -65,7 +65,7 @@ body {
 .screen__background__shape2 {
     height: 220px;
     width: 220px;
-    background: #ac6363;
+    background: #a4d4fc;
     top: -172px;
     right: 0;
     border-radius: 32px;
@@ -74,7 +74,7 @@ body {
 .screen__background__shape3 {
     height: 540px;
     width: 190px;
-    background: linear-gradient(270deg, #a45454, #9e6767);
+    background: linear-gradient(270deg, #549ba4, #67969e);
     top: -24px;
     right: 0;
     border-radius: 32px;
@@ -83,7 +83,7 @@ body {
 .screen__background__shape4 {
     height: 400px;
     width: 200px;
-    background: #b97b7b;
+    background: #a4d4fc;
     top: 420px;
     right: 50px;
     border-radius: 60px;
@@ -103,13 +103,14 @@ body {
 .login__icon {
     position: absolute;
     top: 30px;
-    color: #b57575;
+    color: #a4d4fc;
 }
 
 .login__input {
     border: none;
-    border-bottom: 2px solid #d4d1d1;
+    border-bottom: 1px solid #d4d1d1;
     background: none;
+    color: black;
     padding: 10px;
     padding-left: 24px;
     font-weight: 700;
@@ -121,23 +122,22 @@ body {
 .login__input:focus,
 .login__input:hover {
     outline: none;
-    border-bottom-color: #9e6767;
+    border-bottom-color: black;
 }
 
 .login__submit {
     background: #fff;
+    color: black;
     font-size: 14px;
     margin-top: 30px;
     padding: 16px 20px;
     border-radius: 26px;
-    border: 1px solid #D4D3E8;
+    border: 1px solid black;
     text-transform: uppercase;
     font-weight: 700;
     display: flex;
     align-items: center;
     width: 100%;
-    color: #9d4848;
-    box-shadow: 0px 2px 2px #965656;
     cursor: pointer;
     transition: .2s;
 }
@@ -145,14 +145,13 @@ body {
 .login__submit:active,
 .login__submit:focus,
 .login__submit:hover {
-    border-color: #9e6767;
     outline: none;
 }
 
 .button__icon {
     font-size: 24px;
     margin-left: auto;
-    color: #b57575;
+    color: #a4d4fc;
 }
 
 .social-login {
@@ -175,7 +174,7 @@ body {
     padding: 20px 10px;
     color: #fff;
     text-decoration: none;
-    text-shadow: 0px 0px 8px #b57575;
+    text-shadow: 0px 0px 8px #a4d4fc;
 }
 
 .social-login__icon:hover {
