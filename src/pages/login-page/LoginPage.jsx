@@ -1,7 +1,7 @@
 import React from "react";
 import './LoginPage.css'
 import { useState } from "react";
-import { useNavigate, userNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import {Text} from "@consta/uikit/Text"
 
@@ -35,6 +35,8 @@ const LoginPage = () => {
         password: ''
     });    
     const [invalidInput, setInvalidInput] = useState(false);
+    const [error, setError] = useState(null);
+
 
     const navigate = useNavigate();
 
@@ -45,37 +47,48 @@ const LoginPage = () => {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        if (!formData.username || !formData.password) {
-            setInvalidInput(true)
-            return
-        } else {
-            setInvalidInput(false)
+        
+        try {
+            if (!formData.username || !formData.password) {
+                setInvalidInput(true)
+                return
+            } else {
+                setInvalidInput(false)
+            }
+            
+            // emilys emilyspass
+            const resp = await fetch('https://dummyjson.com/auth/login', {
+                method: "POST",
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ username: formData.username, password: formData.password, expiresInMins: 100 })
+            })
+
+            if (!resp.ok) {
+                console.log(resp.status);
+                console.log(formData.username, formData.password);
+                throw new Error('Ошибка аутентификации');
+            }
+
+            const loginData = await resp.json()
+            let [accessToken, refreshToken] = [loginData['accessToken'], loginData['refreshToken']]
+
+            saveTokens(accessToken, refreshToken)
+            
+            const getMeResp = await fetch('https://dummyjson.com/auth/me', {
+                method: "GET",
+                headers: {'Authorization': `Bearer ${accessToken}`},
+            })
+
+            const userData = await getMeResp.json()
+            
+            console.log(userData)
+
+            saveProfileData(userData)
+            navigate(`/user/${userData.id}`);
+            window.location.reload();
+        } catch (error) {
+            setError(error.message);
         }
-        
-        // emilys emilyspass
-        const resp = await fetch('https://dummyjson.com/auth/login', {
-            method: "POST",
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ username: formData.username, password: formData.password, expiresInMins: 100 })
-        })
-
-        const loginData = await resp.json()
-        let [accessToken, refreshToken] = [loginData['accessToken'], loginData['refreshToken']]
-
-        saveTokens(accessToken, refreshToken)
-        
-        const getMeResp = await fetch('https://dummyjson.com/auth/me', {
-            method: "GET",
-            headers: {'Authorization': `Bearer ${accessToken}`},
-        })
-
-        const userData = await getMeResp.json()
-        
-        console.log(userData)
-
-        saveProfileData(userData)
-        navigate(`/user/${userData.id}`);
-        window.location.reload();
     }
 
     return (
@@ -98,6 +111,7 @@ const LoginPage = () => {
                             { invalidInput ? 
                                 <Text view="alert">Заполните поля</Text>
                             : null}
+                            {error && <Text align="left" view="alert">{error}</Text>}
                         </form>
                     </div>
                 </div>

@@ -1,16 +1,9 @@
 import React from "react";
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './Header.css';
-import { getToken } from "../../pages/login-page/LoginPage";
 
 const Header = () => {
-    let profileButtonNavTo;
     const currentUserID = localStorage.getItem('id')
-    if (!currentUserID) {
-        profileButtonNavTo = '/login';
-    } else {
-        profileButtonNavTo = `/user/${currentUserID}`;
-    }
 
     const handleLogOut = () => {
         localStorage.clear();
