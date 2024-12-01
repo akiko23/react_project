@@ -8,6 +8,7 @@ import ServicePage from "../../pages/service-page/ServicePage";
 import Footer from "../footer/Footer";
 import Header from "../header/Header";
 import LoginPage from "../../pages/login-page/LoginPage";
+import ProfilePage from "../../pages/profile-page/ProfilePage";
 
 
 const App = function () {
@@ -21,6 +22,7 @@ const App = function () {
                         <Route path="services" element={<ServicePage/>}></Route>
                         <Route path='services/:id' element={<ServiceDetailPage/>}></Route>
                         <Route path='login' element={<LoginPage/>}></Route>
+                        <Route path='user/:id' element={<ProfilePage/>}></Route>
                         {/*<Route path={`${AppRoute.service}/:id`} element={<ServiceDetailPage/>}></Route>*/}
                     </Route>
                     <Route path='*' element={<Responses404 className='test'/>}></Route>
