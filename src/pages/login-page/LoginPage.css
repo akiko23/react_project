@@ -24,7 +24,6 @@ body {
 }
 
 .screen {
-    background: linear-gradient(90deg, #549ba4, #78a6b8);
     position: relative;
     border: 1px solid black;
     height: 600px;
@@ -131,7 +130,6 @@ body {
     font-size: 14px;
     margin-top: 30px;
     padding: 16px 20px;
-    border-radius: 26px;
     border: 1px solid black;
     text-transform: uppercase;
     font-weight: 700;
