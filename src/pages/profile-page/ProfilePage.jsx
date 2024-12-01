@@ -10,7 +10,7 @@ const Profile = () => {
   const { id } = useParams();
   const [userData, setUserData] = useState(null);
 
-  const [fetchedUserID, setFetchedUserID] = useState(false);
+  const IDFromStorage = parseInt(localStorage.getItem('id'))
 
   let accessToken = getToken()
   useEffect(() => {
@@ -22,7 +22,6 @@ const Profile = () => {
       })
       .then((data) => {
         setUserData(data);
-        setFetchedUserID(data.id);
       })
       .catch((error) => {
         console.error('Error fetching the user data:', error);
@@ -31,7 +30,7 @@ const Profile = () => {
 
   return (
     <>
-      {userData && (fetchedUserID === parseInt(id)) ? (
+      {userData && (parseInt(id) === IDFromStorage) ? (
         <div className='profile_card' style={{ display: 'flex', flexDirection: "column", gap: "20px", alignItems: "center" }}>
             <img src={userData.image} height="100" width="100" />
             <h3>{userData.firstName + ' ' + userData.lastName}</h3>
@@ -42,7 +41,7 @@ const Profile = () => {
                 <div>Expires at: <b>{userData.bank.cardExpire}</b></div>
             </div>
         </div>
-       ): (
+       ): (IDFromStorage === parseInt(id)) ? <div></div> : (
         <Responses404/>
       )}
     </>
