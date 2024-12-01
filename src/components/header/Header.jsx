@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import './Header.css';
 import { getToken } from "../../pages/login-page/LoginPage";
 
@@ -10,6 +10,12 @@ const Header = () => {
         profileButtonNavTo = '/login';
     } else {
         profileButtonNavTo = `/user/${currentUserID}`;
+    }
+
+    const handleLogOut = () => {
+        localStorage.clear();
+        window.location.href = '/';
+        window.location.reload()
     }
 
     return (
@@ -43,7 +49,7 @@ const Header = () => {
                 <NavLink to={`/user/${currentUserID}`} className="nav-button" activeClassName="active">
                     Профиль
                 </NavLink>
-                <NavLink to="/logout" className="nav-button" activeClassName="active">
+                <NavLink onClick={handleLogOut} className="nav-button" activeClassName="active">
                     Выход
                 </NavLink>
             </div>

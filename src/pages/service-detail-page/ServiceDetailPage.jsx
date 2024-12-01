@@ -7,6 +7,8 @@ const ServiceDetail = () => {
   const { id } = useParams();
   const [service, setService] = useState(null);
 
+  const currentUserID = localStorage.getItem('id')
+
   useEffect(() => {
     fetch(`https://673423afa042ab85d1190055.mockapi.io/api/v1/services/${id}`)
       .then((response) => {
@@ -22,7 +24,9 @@ const ServiceDetail = () => {
 
   return (
     <>
-      {service ? (
+      {!currentUserID ? (
+        <div style={{textAlign: "center"}}>Вы должны войти в аккаунт.</div>
+      ) : service ? (
         <MyCard 
           imgURI={service.image} 
           name={service.name} 

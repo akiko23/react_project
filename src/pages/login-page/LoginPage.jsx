@@ -74,7 +74,8 @@ const LoginPage = () => {
         console.log(userData)
 
         saveProfileData(userData)
-        navigate(`/user/${userData.id}`)
+        navigate(`/user/${userData.id}`);
+        window.location.reload();
     }
 
     return (
