@@ -17,8 +17,13 @@ export const getToken = () => {
 
 export const saveTokens = (accessToken: Token, refreshToken: Token) => {
     localStorage.setItem(AUTH_TOKEN_KEY_NAME, accessToken);
-    localStorage.setItem(AUTH_TOKEN_KEY_NAME, refreshToken);
+    localStorage.setItem(REFRESH_TOKEN_KEY_NAME, refreshToken);
 };
+
+
+export const saveProfileData = (userData) => {
+    localStorage.setItem('id', userData.id);
+}
 
 export const dropToken = () => {
     localStorage.removeItem(AUTH_TOKEN_KEY_NAME);
@@ -68,6 +73,7 @@ const LoginPage = () => {
         
         console.log(userData)
 
+        saveProfileData(userData)
         navigate(`/user/${userData.id}`)
     }
 

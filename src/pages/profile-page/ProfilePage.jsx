@@ -1,0 +1,52 @@
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import './ProfilePage.css'
+import { getToken } from '../login-page/LoginPage';
+import {Responses404} from '@consta/uikit/Responses404';
+
+
+
+const Profile = () => {
+  const { id } = useParams();
+  const [userData, setUserData] = useState(null);
+
+  const [fetchedUserID, setFetchedUserID] = useState(false);
+
+  let accessToken = getToken()
+  useEffect(() => {
+    fetch('https://dummyjson.com/auth/me', {
+        method: "GET",
+        headers: {'Authorization': `Bearer ${accessToken}`},
+    }).then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setUserData(data);
+        setFetchedUserID(data.id);
+      })
+      .catch((error) => {
+        console.error('Error fetching the user data:', error);
+      });
+  }, []);
+
+  return (
+    <>
+      {userData && (fetchedUserID === parseInt(id)) ? (
+        <div className='profile_card' style={{ display: 'flex', flexDirection: "column", gap: "20px", alignItems: "center" }}>
+            <img src={userData.image} height="100" width="100" />
+            <h3>{userData.firstName + ' ' + userData.lastName}</h3>
+            <div className='profile_card__bank_data' style={{ display: "flex", gap: "5px", flexDirection: "column"}}>
+                <div>Card number: <b>{userData.bank.cardNumber}</b></div>
+                <div>Card type: <b>{userData.bank.cardType}</b></div>
+                <div>Currency: <b>{userData.bank.currency}</b></div>
+                <div>Expires at: <b>{userData.bank.cardExpire}</b></div>
+            </div>
+        </div>
+       ): (
+        <Responses404/>
+      )}
+    </>
+  );
+};
+
+export default Profile;
