@@ -23,7 +23,6 @@ const App = function () {
                         <Route path='services/:id' element={<ServiceDetailPage/>}></Route>
                         <Route path='login' element={<LoginPage/>}></Route>
                         <Route path='user/:id' element={<ProfilePage/>}></Route>
-                        {/*<Route path={`${AppRoute.service}/:id`} element={<ServiceDetailPage/>}></Route>*/}
                     </Route>
                     <Route path='*' element={<Responses404 className='test'/>}></Route>
                 </Routes>
