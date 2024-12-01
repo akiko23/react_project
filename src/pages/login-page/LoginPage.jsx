@@ -1,7 +1,12 @@
 import React from "react";
 import './LoginPage.css'
+import { useState } from "react";
+import { useNavigate, userNavigate } from 'react-router-dom';
 
-const AUTH_TOKEN_KEY_NAME = 'lk-sirius-token';
+import {Text} from "@consta/uikit/Text"
+
+const AUTH_TOKEN_KEY_NAME = 'sber-access_token';
+const REFRESH_TOKEN_KEY_NAME = 'sber-refresh_token';
 
 export type Token = string;
 
@@ -10,11 +15,12 @@ export const getToken = () => {
     return token ?? '';
 };
 
-export const saveToken = (token: Token) => {
-    localStorage.setItem(AUTH_TOKEN_KEY_NAME, token);
+export const saveTokens = (accessToken: Token, refreshToken: Token) => {
+    localStorage.setItem(AUTH_TOKEN_KEY_NAME, accessToken);
+    localStorage.setItem(AUTH_TOKEN_KEY_NAME, refreshToken);
 };
 
-export const dropToken = (token: Token) => {
+export const dropToken = () => {
     localStorage.removeItem(AUTH_TOKEN_KEY_NAME);
 };
 
@@ -22,17 +28,47 @@ const LoginPage = () => {
     const [formData, setFormData] = React.useState({
         username: '',
         password: ''
-    });
-    
-    
+    });    
+    const [invalidInput, setInvalidInput] = useState(false);
+
+    const navigate = useNavigate();
+
     function updateFormData (e) {
         const {name, value} = e.target;
         setFormData({...formData, [name]: value})
     }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
-        console.log(formData.username)
+        if (!formData.username || !formData.password) {
+            setInvalidInput(true)
+            return
+        } else {
+            setInvalidInput(false)
+        }
+        
+        // emilys emilyspass
+        const resp = await fetch('https://dummyjson.com/auth/login', {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ username: formData.username, password: formData.password, expiresInMins: 100 })
+        })
+
+        const loginData = await resp.json()
+        let [accessToken, refreshToken] = [loginData['accessToken'], loginData['refreshToken']]
+
+        saveTokens(accessToken, refreshToken)
+        
+        const getMeResp = await fetch('https://dummyjson.com/auth/me', {
+            method: "GET",
+            headers: {'Authorization': `Bearer ${accessToken}`},
+        })
+
+        const userData = await getMeResp.json()
+        
+        console.log(userData)
+
+        navigate(`/user/${userData.id}`)
     }
 
     return (
@@ -52,14 +88,10 @@ const LoginPage = () => {
                                 <span className="button__text">Войти</span>
                                 <i className="button__icon fas fa-chevron-right"></i>
                             </button>
+                            { invalidInput ? 
+                                <Text view="alert">Заполните поля</Text>
+                            : null}
                         </form>
-
-                    </div>
-                    <div className="screen__background">
-                        <span className="screen__background__shape screen__background__shape4"></span>
-                        <span className="screen__background__shape screen__background__shape3"></span>
-                        <span className="screen__background__shape screen__background__shape2"></span>
-                        <span className="screen__background__shape screen__background__shape1"></span>
                     </div>
                 </div>
             </div>
