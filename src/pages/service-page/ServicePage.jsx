@@ -13,7 +13,7 @@ const ServicePage = () => {
   const [error, setError] = useState(null);
 
   const cardsPerPage = 15;
-
+  
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -50,7 +50,6 @@ const ServicePage = () => {
   }
 
 
-  console.log(currentCards)
   return (
     <div>
       <main>
