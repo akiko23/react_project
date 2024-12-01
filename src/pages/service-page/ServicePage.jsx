@@ -50,7 +50,6 @@ const ServicePage = () => {
   }
 
 
-  console.log(currentCards)
   return (
     <div>
       <main>
