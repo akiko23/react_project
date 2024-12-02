@@ -23,29 +23,35 @@ const ServicePage = () => {
   const cardsPerPage = 15;
   
   useEffect(() => {
-    console.log(servicesFromState)
-    if (!servicesFromState.length) {
-      console.log('Fetching..')
-      const fetchData = async () => {
-          setIsLoading(true);
-          try {
-            const response = await fetch(SERVICES_URL);
-            if (!response.ok) {
-              throw new Error(`HTTP error! status: ${response.status}`);
+    const currentUserID = localStorage.getItem('id')
+    if (currentUserID) {
+      console.log(servicesFromState)
+      if (!servicesFromState.length) {
+        console.log('Fetching..')
+        const fetchData = async () => {
+            setIsLoading(true);
+            try {
+              const response = await fetch(SERVICES_URL);
+              if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+              }
+              const data = await response.json();
+              setAllCards(data);
+              dispatch(set(data));
+            } catch (error) {
+              setError(error.message);
+            } finally {
+              setIsLoading(false);
             }
-            const data = await response.json();
-            setAllCards(data);
-            dispatch(set(data));
-          } catch (error) {
-            setError(error.message);
-          } finally {
-            setIsLoading(false);
-          }
-      };
-      fetchData();
+        };
+        fetchData();
+      } else {
+        setIsLoading(false);
+        setAllCards(servicesFromState);
+      }
     } else {
+      setError('Вы должны войти в аккаунт.');
       setIsLoading(false);
-      setAllCards(servicesFromState);
     }
 
     
@@ -53,7 +59,7 @@ const ServicePage = () => {
 
   const startIndex = (currentPage - 1) * cardsPerPage;
   const currentCards = allCards.slice(startIndex, startIndex + cardsPerPage);
-
+  
   if (isLoading) {
     return (
       <div className="loader-container">
@@ -63,7 +69,7 @@ const ServicePage = () => {
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div style={{textAlign: "center"}}>{error}</div>;
   }
 
   return (
