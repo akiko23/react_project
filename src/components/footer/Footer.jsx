@@ -3,8 +3,22 @@ import {NavLink} from 'react-router-dom';
 import './Footer.css';
 
 const Footer = () => {
+    const currentUserID = localStorage.getItem('id')
+
     return (
-        <footer className="footer">
+        <>
+        {!currentUserID ?
+            <footer className="footer">
+                <div className="footer-left">
+                    <NavLink to="/" className="nav-button" activeClassName="active">
+                        Главная страница
+                    </NavLink>
+                </div>
+                <div className="nav-right">
+                    <p className="footer-text nav-right">© 2024 Моя компания</p>
+                </div>
+            </footer>
+          : <footer className="footer">
             <div className="footer-left">
                 <NavLink to="/" className="nav-button" activeClassName="active">
                     Главная страница
@@ -17,6 +31,8 @@ const Footer = () => {
                 <p className="footer-text nav-right">© 2024 Моя компания</p>
             </div>
         </footer>
+        }
+        </>
     );
 };
 
