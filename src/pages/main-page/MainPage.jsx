@@ -45,7 +45,7 @@ const MainPage = () => {
           setIsLoading(false);
           setAllNews(newsFromState);
         }
-    }, []);
+    }, [dispatch, newsFromState]);
     
       const startIndex = (currentPage - 1) * newsPerPage;
       const currentCards = allNews.slice(startIndex, startIndex + newsPerPage);
@@ -59,7 +59,7 @@ const MainPage = () => {
       }
     
       if (error) {
-        return <div>Error: {error}</div>;
+        return <div style={{textAlign: "center"}}>Error: {error}</div>;
       }
 
     return (
