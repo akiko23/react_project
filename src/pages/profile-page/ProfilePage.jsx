@@ -4,18 +4,30 @@ import './ProfilePage.css'
 import { getToken } from '../login-page/LoginPage';
 import {Responses404} from '@consta/uikit/Responses404';
 import {Button} from '@consta/uikit/Button';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { set } from './ProfileSlice'
+import { Loader } from "@consta/uikit/Loader";
 
 
 const Profile = () => {
   const { id } = useParams();
-  const [userData, setUserData] = useState(null);
 
+  const dispatch = useDispatch();
+  const profileFromState = useSelector((state) => state.profile.value);
+
+  const [userData, setUserData] = useState(null);
   const [IDFromStorage, setIDFromStorage] = useState(parseInt(localStorage.getItem('id')))
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     let accessToken = getToken();
     if (accessToken) {
+      if (profileFromState) {
+          setUserData(profileFromState);
+          setIsLoading(false);
+          return;
+      }
+      
       fetch('https://dummyjson.com/auth/me', {
           method: "GET",
           headers: {'Authorization': `Bearer ${accessToken}`},
@@ -30,12 +42,24 @@ const Profile = () => {
         .then((data) => {
           localStorage.setItem('id', data.id);
           setUserData(data);
+          dispatch(set(data));
         })
         .catch((error) => {
           console.error('Error fetching the user data:', error);
+        })
+        .finally( () => {
+          setIsLoading(false);
         });
       }
-  }, []);
+  }, [dispatch, profileFromState]);
+
+  if (isLoading) {
+    return (
+      <div className="loader-container">
+        <Loader size="m" />
+      </div>
+    );
+  }
 
   return (
     <>
