@@ -1,6 +1,7 @@
 import React from 'react';
 import {presetGpnDefault, Theme} from '@consta/uikit/Theme';
 import {Responses404} from '@consta/uikit/Responses404';
+import {Button} from '@consta/uikit/Button';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import MainPage from "../../pages/main-page/MainPage";
 import ServiceDetailPage from "../../pages/service-detail-page/ServiceDetailPage";
@@ -24,7 +25,7 @@ const App = function () {
                         <Route path='login' element={<LoginPage/>}></Route>
                         <Route path='user/:id' element={<ProfilePage/>}></Route>
                     </Route>
-                    <Route path='*' element={<Responses404 className='test'/>}></Route>
+                    <Route path='*' element={<Responses404 className='test' actions={<Button size="m" view="ghost" label="На главную" />}/>}></Route>
                 </Routes>
                 <Footer/>
             </BrowserRouter>

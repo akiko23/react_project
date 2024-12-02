@@ -10,22 +10,30 @@ const Profile = () => {
   const { id } = useParams();
   const [userData, setUserData] = useState(null);
 
-  const IDFromStorage = parseInt(localStorage.getItem('id'))
+  const [IDFromStorage, setIDFromStorage] = useState(parseInt(localStorage.getItem('id')))
 
   let accessToken = getToken()
   useEffect(() => {
-    fetch('https://dummyjson.com/auth/me', {
-        method: "GET",
-        headers: {'Authorization': `Bearer ${accessToken}`},
-    }).then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        setUserData(data);
-      })
-      .catch((error) => {
-        console.error('Error fetching the user data:', error);
-      });
+    if (accessToken) {
+      fetch('https://dummyjson.com/auth/me', {
+          method: "GET",
+          headers: {'Authorization': `Bearer ${accessToken}`},
+      }).then((response) => {
+          if (response.status === 401) {
+            localStorage.clear();
+            setIDFromStorage(null);
+            throw Error('Invalid token');
+          }
+          return response.json();
+        })
+        .then((data) => {
+          localStorage.setItem('id', data.id);
+          setUserData(data);
+        })
+        .catch((error) => {
+          console.error('Error fetching the user data:', error);
+        });
+      }
   }, []);
 
   return (
