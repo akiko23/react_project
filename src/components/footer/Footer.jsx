@@ -10,7 +10,7 @@ const Footer = () => {
         {!currentUserID ?
             <footer className="footer">
                 <div className="footer-left">
-                    <NavLink to="/" className="nav-button" activeClassName="active">
+                    <NavLink to="/" className="nav-button" activeclassname="active">
                         Главная страница
                     </NavLink>
                 </div>
@@ -20,10 +20,10 @@ const Footer = () => {
             </footer>
           : <footer className="footer">
             <div className="footer-left">
-                <NavLink to="/" className="nav-button" activeClassName="active">
+                <NavLink to="/" className="nav-button" activeclassname="active">
                     Главная страница
                 </NavLink>
-                <NavLink to="/services" className="nav-button" activeClassName="active">
+                <NavLink to="/services" className="nav-button" activeclassname="active">
                     Услуги компании
                 </NavLink>
             </div>

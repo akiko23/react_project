@@ -20,7 +20,6 @@ const ServiceDetail = () => {
       })
       .then((data) => {
         if (data !== 'Not found') {
-          console.log(data);
           setService(data);          
         }
       })

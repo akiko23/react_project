@@ -67,7 +67,7 @@ const MainPage = () => {
         <main className="content">
             {
                 currentCards.map((card) => (
-                    <div className="message-box">
+                    <div className="message-box" key={card.id}>
                         <p><b>{card.name}</b></p>
                         <br/>
                         <p>{card.description}</p>

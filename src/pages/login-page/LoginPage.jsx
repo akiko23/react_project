@@ -64,9 +64,8 @@ const LoginPage = () => {
             })
 
             if (!resp.ok) {
-                console.log(resp.status);
-                console.log(formData.username, formData.password);
-                throw new Error('Ошибка аутентификации');
+                setError('Ошибка аутентификации');
+                return;
             }
 
             const loginData = await resp.json()
@@ -81,8 +80,6 @@ const LoginPage = () => {
 
             const userData = await getMeResp.json()
             
-            console.log(userData)
-
             saveProfileData(userData)
             navigate(`/user/${userData.id}`);
             window.location.reload();

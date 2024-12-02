@@ -25,9 +25,7 @@ const ServicePage = () => {
   useEffect(() => {
     const currentUserID = localStorage.getItem('id')
     if (currentUserID) {
-      console.log(servicesFromState)
       if (!servicesFromState.length) {
-        console.log('Fetching..')
         const fetchData = async () => {
             setIsLoading(true);
             try {
