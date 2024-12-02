@@ -12,7 +12,7 @@ const MyCard = ({ imgURI, name, desc, id }) => {
   };
 
   return (
-    <div onClick={handleClick} style={{ cursor: 'pointer', display: "flex", alignItems: "center", flex: '1 1 calc(50% - 5px)', margin: '2.5px' }}>
+    <div onClick={handleClick} style={{ display: "flex", alignItems: "center", flex: '1 1 calc(50% - 5px)', margin: '2.5px' }}>
       <Card style={{ minHeight: "100px", width: "100%", maxHeight: "200px" }}>
         <Layout direction="row" style={{gap: "20px"}}>
           <img src={imgURI} alt={name} style={{ minWidth: "50px", maxHeight: "200px", objectFit: "cover" }} />
