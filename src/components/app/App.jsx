@@ -25,7 +25,7 @@ const App = function () {
                         <Route path='login' element={<LoginPage/>}></Route>
                         <Route path='user/:id' element={<ProfilePage/>}></Route>
                     </Route>
-                    <Route path='*' element={<Responses404 className='test' actions={<Button size="m" view="ghost" label="На главную" />}/>}></Route>
+                    <Route path='*' element={<Responses404 className='test' actions={<Button onClick={() => window.location.href = '/'} size="m" view="ghost" label="На главную" />}/>}></Route>
                 </Routes>
                 <Footer/>
             </BrowserRouter>

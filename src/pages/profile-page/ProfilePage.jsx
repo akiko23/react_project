@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import './ProfilePage.css'
 import { getToken } from '../login-page/LoginPage';
 import {Responses404} from '@consta/uikit/Responses404';
+import {Button} from '@consta/uikit/Button';
 
 
 
@@ -12,8 +13,8 @@ const Profile = () => {
 
   const [IDFromStorage, setIDFromStorage] = useState(parseInt(localStorage.getItem('id')))
 
-  let accessToken = getToken()
   useEffect(() => {
+    let accessToken = getToken();
     if (accessToken) {
       fetch('https://dummyjson.com/auth/me', {
           method: "GET",
@@ -40,7 +41,7 @@ const Profile = () => {
     <>
       {userData && (parseInt(id) === IDFromStorage) ? (
         <div className='profile_card' style={{ display: 'flex', flexDirection: "column", gap: "20px", alignItems: "center" }}>
-            <img src={userData.image} height="100" width="100" />
+            <img src={userData.image} height="100" width="100" alt={userData.firstName} />
             <h3>{userData.firstName + ' ' + userData.lastName}</h3>
             <div className='profile_card__bank_data' style={{ display: "flex", gap: "5px", flexDirection: "column"}}>
                 <div>Card number: <b>{userData.bank.cardNumber}</b></div>
@@ -50,7 +51,7 @@ const Profile = () => {
             </div>
         </div>
        ): (IDFromStorage === parseInt(id)) ? <div></div> : (
-        <Responses404/>
+        <Responses404  actions={<Button onClick={() => window.location.href = '/'} size="m" view="ghost" label="На главную" />}/>
       )}
     </>
   );
