@@ -8,7 +8,6 @@ const Header = () => {
     const handleLogOut = () => {
         localStorage.clear();
         window.location.href = '/';
-        window.location.reload()
     }
 
     return (
@@ -39,9 +38,9 @@ const Header = () => {
                 <NavLink to={`/user/${currentUserID}`} className="nav-button" activeClassName="active">
                     Профиль
                 </NavLink>
-                <NavLink onClick={handleLogOut} className="nav-button" activeClassName="active">
+                <div onClick={handleLogOut} className="nav-button" activeClassName="active">
                     Выход
-                </NavLink>
+                </div>
             </div>
           </header>   
         }

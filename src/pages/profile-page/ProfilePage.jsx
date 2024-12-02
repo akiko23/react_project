@@ -21,36 +21,40 @@ const Profile = () => {
 
   useEffect(() => {
     let accessToken = getToken();
-    if (accessToken) {
-      if (profileFromState) {
-          setUserData(profileFromState);
-          setIsLoading(false);
-          return;
-      }
+    if (!accessToken) {
+      setIsLoading(false);
+      return;
+    }
+
+    if (profileFromState) {
+        setUserData(profileFromState);
+        setIsLoading(false);
+        return;
+    }
+    
+    fetch('https://dummyjson.com/auth/me', {
+        method: "GET",
+        headers: {'Authorization': `Bearer ${accessToken}`},
+    }).then((response) => {
+        if (response.status === 401) {
+          localStorage.clear();
+          setIDFromStorage(null);
+          throw Error('Invalid token');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        localStorage.setItem('id', data.id);
+        setUserData(data);
+        dispatch(set(data));
+      })
+      .catch((error) => {
+        console.error('Error fetching the user data:', error);
+      })
+      .finally( () => {
+        setIsLoading(false);
+      });
       
-      fetch('https://dummyjson.com/auth/me', {
-          method: "GET",
-          headers: {'Authorization': `Bearer ${accessToken}`},
-      }).then((response) => {
-          if (response.status === 401) {
-            localStorage.clear();
-            setIDFromStorage(null);
-            throw Error('Invalid token');
-          }
-          return response.json();
-        })
-        .then((data) => {
-          localStorage.setItem('id', data.id);
-          setUserData(data);
-          dispatch(set(data));
-        })
-        .catch((error) => {
-          console.error('Error fetching the user data:', error);
-        })
-        .finally( () => {
-          setIsLoading(false);
-        });
-      }
   }, [dispatch, profileFromState]);
 
   if (isLoading) {

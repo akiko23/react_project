@@ -19,7 +19,10 @@ const ServiceDetail = () => {
         return response.json();
       })
       .then((data) => {
-        setService(data);
+        if (data !== 'Not found') {
+          console.log(data);
+          setService(data);          
+        }
       })
       .catch((error) => {
         console.error('Error fetching the service:', error);
