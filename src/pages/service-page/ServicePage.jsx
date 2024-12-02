@@ -4,6 +4,7 @@ import { Loader } from "@consta/uikit/Loader";
 import { useDispatch, useSelector } from 'react-redux';
 import { set } from './ServicesSlice'
 import "./ServicePage.css";
+import { useNavigate } from "react-router-dom";
 
 const SERVICES_URL = "https://673423afa042ab85d1190055.mockapi.io/api/v1/services";
 
@@ -16,6 +17,8 @@ const ServicePage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [error, setError] = useState(null);
+
+  const navigate = useNavigate()
 
   const cardsPerPage = 15;
   
@@ -46,7 +49,7 @@ const ServicePage = () => {
     }
 
     
-  }, []);
+  }, [servicesFromState, dispatch]);
 
   const startIndex = (currentPage - 1) * cardsPerPage;
   const currentCards = allCards.slice(startIndex, startIndex + cardsPerPage);
@@ -63,19 +66,18 @@ const ServicePage = () => {
     return <div>Error: {error}</div>;
   }
 
-
   return (
     <div>
       <main>
         {
             currentCards.map((card) => (
-                <a href={`/services/${card.id}`} className="company-card" key={card.id}>
+                <div onClick={() => navigate(`/services/${card.id}`)} className="company-card" key={card.id}>
                     <img src={card.image} alt={card.name} className="card-image" />
                     <div>
                         <h3>{card.name}</h3>
                         <p style={{marginTop: "10px"}}>{card.description}</p>
                     </div>
-                </a>
+                </div>
             ))
         }
       </main>

@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import MyCard from '../../components/card/Card'; 
-
+import { Loader } from "@consta/uikit/Loader";
 
 const ServiceDetail = () => {
   const { id } = useParams();
   const [service, setService] = useState(null);
-
-  const currentUserID = localStorage.getItem('id')
+  const [isLoading, setIsLoading] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    fetch(`https://673423afa042ab85d1190055.mockapi.io/api/v1/services/${id}`)
+    const currentUserID = localStorage.getItem('id')
+    if (currentUserID) {
+      setIsLoading(true);
+      setIsAuthenticated(true);
+      fetch(`https://673423afa042ab85d1190055.mockapi.io/api/v1/services/${id}`)
       .then((response) => {
         return response.json();
       })
@@ -19,12 +23,24 @@ const ServiceDetail = () => {
       })
       .catch((error) => {
         console.error('Error fetching the service:', error);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
+    }
   }, [id]);
+
+  if (isLoading) {
+    return (
+      <div className="loader-container">
+        <Loader size="m" />
+      </div>
+    );
+  }
 
   return (
     <>
-      {!currentUserID ? (
+      {!isAuthenticated ? (
         <div style={{textAlign: "center"}}>Вы должны войти в аккаунт.</div>
       ) : service ? (
         <MyCard 
@@ -34,7 +50,7 @@ const ServiceDetail = () => {
           id={service.id} 
         />
       ) : (
-        <div>Услуга не найдена.</div>
+        <div style={{textAlign: "center"}}>Услуга не найдена.</div>
       )}
     </>
   );
